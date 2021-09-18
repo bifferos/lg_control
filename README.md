@@ -1,12 +1,50 @@
 lg_control
 ==========
 
-Send control codes to a connected LG TV.  There are other programs that 
-do something similar to this but I wanted something fairly generic, that
+Sends control codes to a connected LG TV.  There are other programs that 
+do something similar to this, but I wanted something fairly generic, that
 played nicely with USB-serial port adapters.
+
+Setup
+=====
+
+Prior to the days of HDMI-CEC (or whatever your favoured manufacturer 
+[wants to call it](https://www.howtogeek.com/207186/how-to-enable-hdmi-cec-on-your-tv-and-why-you-should/)) 
+many LG TVs came equipped with an RS232 port
+over which could be sent control commands.  If the back of your LG set looks
+something like this then you have one:
+
+
+![](pics/control-port.jpg)
+
+See the 'D' connector labelled RS-232C IN (CONTROL & SERVICE).
+
+If you then seek out the PDF (or physical) manual for your TV (in my case
+32LH2000.pdf), then the Appendix talks about this connector:
+
+![](pics/Connection.jpg)
+
+If you don't have a proper null modem cable (I did) you can just make up a
+simmple 3-way cross-over cable.  It seems the flow-control lines aren't used.
+
+![](pics/pinouts.png)
+
+It also tells you what baud rate to use and the command codes accepted. 
+It's all pretty standard, 9600 baud 8 data bits, 1 stop bit no parity.  If
+you know anything about RS-232 you probably would have tried that first
+anyway.
+
+The manual describes how commands are sent:
+
+![](pics/commands.png)
 
 Codes sent to the TV consist of two command letters, followed by a space
 followed by the set ID, another space some data and then a newline.
+
+The lg_command program takes serial device as the first argument, then
+groups the two command characters together as the
+second, the set ID as the third, and the data as the fourth. 
+
 For example for power-on for any connected set the code would be:
 
 ```
