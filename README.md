@@ -5,8 +5,8 @@ Sends control codes to a connected LG TV.  There are other programs that
 do something similar to this, but I wanted something fairly generic, that
 played nicely with USB-serial port adapters.
 
-Setup
-=====
+Hardware Setup
+==============
 
 Prior to the days of HDMI-CEC (or whatever your favoured manufacturer 
 [wants to call it](https://www.howtogeek.com/207186/how-to-enable-hdmi-cec-on-your-tv-and-why-you-should/)) 
@@ -25,7 +25,7 @@ If you then seek out the PDF (or physical) manual for your TV (in my case
 ![](pics/Connection.jpg)
 
 If you don't have a proper null modem cable (I did) you can just make up a
-simmple 3-way cross-over cable.  It seems the flow-control lines aren't used.
+simple 3-way cross-over cable.  It seems the flow-control lines aren't used.
 
 ![](pics/pinouts.png)
 
@@ -33,6 +33,9 @@ It also tells you what baud rate to use and the command codes accepted.
 It's all pretty standard, 9600 baud 8 data bits, 1 stop bit no parity.  If
 you know anything about RS-232 you probably would have tried that first
 anyway.
+
+Command Protocol
+================
 
 The manual describes how commands are sent:
 
@@ -69,7 +72,7 @@ set.  After the command has been sent the program waits for a short delay
 before printing any returned data and exiting.  This is important for things
 like obtaining the volume level before increasing/decreasing it if that's
 the control you want, since there's no way to tell an LG set to increase the
-volumen by n% the current value must be queried.  It's the same with
+volume by n% the current value must be queried.  It's the same with
 brightness, contrast and so on.
 
 After transmitting a command lg_control waits 5 seconds for a response. 
